@@ -1,0 +1,50 @@
+<!DOCTYPE html >
+<html lang="" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Profiler</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body ng-controller="GithubController as github">
+    <div class="container">
+        <div class="well">
+            <h1>GitHub Profiler!</h1>
+            <h2 class="text"> get info about any GitHub user!</h2>
+        </div>
+        <div class="input-group">
+            <input type="text" ng-model="github.username" class="form-control">
+            <span class="input-group-btn"><button type="button" class = "btn btn-default" ng-click = "github.callGithubApi()">Go!</button></span>
+        </div>
+        <div ng-if="github.data">
+            <div class="container-fluid text-center">
+                <img ng-src={{github.data.avatar_url}} class="img-responsive img-circle col-sm-2">
+                <div class="col-sm-3 well lead" style="margin-right: 20px">followers {{github.data.followers}}</div>
+                <div class="col-sm-3 well lead" style="margin-right: 20px">following {{github.data.following}}</div>
+                <div class="col-sm-3 well lead">Public Repositories {{github.data.public_repos}}</div>
+            </div>
+            <div>
+                <h5>{{github.data.name}}</h5></div>
+            <div>
+                <h5>{{github.data.login}}</h5></div>
+            <div>
+                <h5>{{github.data.location}}</h5></div>
+            <div>
+                <h5 class="text-success" ng-if="github.data.hireable">Available For Work</h5>
+                <h5 class="text-danger" ng-if="!github.data.hireable">Not Available For Work</h5></div>
+            <div>
+                <h5>{{github.sling}} {{github.data.created_at | date: 'MM/dd/yyyy'}}</h5></div>
+        </div>
+    </div>
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="app/home/app.module.js"></script>
+    <script src="app/home/github.controller.js"></script>
+</body>
+
+</html>
+<!-- reposit - https://github.com/' + vm.username + '?tab=repositories
